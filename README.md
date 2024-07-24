@@ -1,4 +1,4 @@
-Wymagania (trzeba mieć zainstalowane w systemie):
+Wymagania (trzeba mieć zainstalowane w systemie):...
 - docker
 - yarn
 - node (wraz z npm)
