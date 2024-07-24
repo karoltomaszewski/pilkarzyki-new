@@ -23,7 +23,7 @@ use Inertia\Inertia;
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get("/players", [PlayersController::class, 'index'])->name('players');
+    Route::get("/players", [PlayersController::class, 'index'])->name('players.list');
     Route::get("/tournaments/new", [PlayersController::class, 'index'])->name('tournaments.new');
 
     Route::get('/l', [LoginController::class, 'logout'])->name('logout');

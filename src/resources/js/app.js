@@ -6,10 +6,14 @@ import axios from "axios";
 createInertiaApp({
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-        return pages[`./Pages/${name}.vue`]
+        return pages[`./Pages/components/sections/${name}.vue`]
     },
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) });
+
+        app.config.globalProperties.$redirect = function(routeName) {
+            return window.location.href = route(routeName);
+        }
 
         app.config.globalProperties.$get = function(url, config) {
             return axios.get(url, config);

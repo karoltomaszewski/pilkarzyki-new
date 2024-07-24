@@ -11,7 +11,7 @@ class PlayersController extends Controller
 {
     public function index(Request $request): Response
     {
-        return Inertia::render('Players', [
+        return Inertia::render('PlayerList', [
             'players' => Player::all()
         ]);
     }
