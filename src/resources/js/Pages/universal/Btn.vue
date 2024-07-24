@@ -19,7 +19,6 @@ const props = defineProps({
     background-color: #E0F9FF;
     border: 2px solid #A0B9BF;
     border-radius: 8px;
-    cursor: pointer;
     font-family: sans-serif;
     font-size: 16px;
     line-height: 20px;
