@@ -13,3 +13,15 @@
         background-color: theme('colors.purple.dark');
     }
 }
+
+@font-face {
+    font-family: 'Russo One';
+    src: url('../js/Pages/assets/fonts/Russo_One/RussoOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'Russo One', sans-serif;
+  }
+  

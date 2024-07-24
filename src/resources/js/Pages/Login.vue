@@ -1,6 +1,7 @@
 <template>
+    {{x}}
     <div class="min-h-screen flex flex-col justify-center items-center">
-        <div class="bg-white p-8 rounded shadow-md">
+        <div class="bg-white p-12 rounded shadow-md">
             <h1 class="text-2xl font-semibold mb-4">Login</h1>
             <form @submit.prevent="submitForm" class="space-y-4">
                 <div>
@@ -46,6 +47,9 @@ export default {
                 this.error = true;
             });
         }
+    },
+    props: {
+        x: Number
     }
 };
 </script>

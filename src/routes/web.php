@@ -22,12 +22,11 @@ use Inertia\Inertia;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get("/players", [PlayersController::class, 'index'])->name('players');
     Route::get("/tournaments/new", [PlayersController::class, 'index'])->name('tournaments.new');
 
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/l', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['guest'])->group(function () {
@@ -36,3 +35,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
     Route::post('/register', [LoginController::class, 'register'])->name('register');
 });
+
+Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
+

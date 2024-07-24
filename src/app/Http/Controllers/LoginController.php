@@ -36,7 +36,7 @@ class LoginController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('Login');
+        return Inertia::render('Login', ['x' => rand(0, 50)]);
     }
 
     public function showRegister(): Response
