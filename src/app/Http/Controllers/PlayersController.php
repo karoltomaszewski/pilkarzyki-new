@@ -33,6 +33,10 @@ class PlayersController extends Controller
         $player->elo = 1000;
         $player->save();
 
-        return new JsonResponse([], 204);
+        return new JsonResponse([
+            'id' => $player->id,
+            'name' => $player->name,
+            'elo' => $player->elo,
+        ], 201);
     }
 }
