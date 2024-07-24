@@ -13,7 +13,7 @@
         <Btn btnName="Go to see table for players rankings"/>
     </div>
     <div class="logout">
-        <a :href="route('logout')">Wyloguj się</a>
+        <a :href="route('logout')">Wyloguj się kfkkfkk</a>
     </div>
 </template>
 
