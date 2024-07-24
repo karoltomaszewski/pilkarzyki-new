@@ -4,11 +4,7 @@
         <ArrisIcon class="arris"/>
     </div>
     <div class="header">
-<<<<<<< HEAD
-        <h2>Choose where You want to go :DD</h2>
-=======
         <h2>Choose where You want to go :)</h2>
->>>>>>> 697bf0ef03582406643575ceac4c687662f33648
     </div>
     <div class="buttons">
         <Btn btnName="Register Player"/>
