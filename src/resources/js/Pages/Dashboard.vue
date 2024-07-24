@@ -4,7 +4,7 @@
         <ArrisIcon class="arris"/>
     </div>
     <div class="header">
-        <h2>Choose where You want to go</h2>
+        <h2>Choose where You want to go :DD</h2>
     </div>
     <div class="buttons">
         <Btn btnName="Register Player"/>
@@ -12,7 +12,7 @@
         <Btn btnName="Go to see tournament"/>
         <Btn btnName="Go to see table for players rankings"/>
     </div>
-    <div>
+    <div class="logout">
         <a :href="route('logout')">Wyloguj się</a>
     </div>
 </template>
