@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\PlayerRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -26,7 +27,7 @@ class PlayersController extends Controller
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(PlayerRequest $request): JsonResponse
     {
         $player = new Player();
         $player->name = $request->name;

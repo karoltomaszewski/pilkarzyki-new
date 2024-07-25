@@ -32,12 +32,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/l', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['guest'])->group(function () {
+// Route::middleware(['guest'])->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::get('/register', [LoginController::class, 'showRegister'])->name('showRegister');
     Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
     Route::post('/register', [LoginController::class, 'register'])->name('register');
-});
+// });
 
 Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
 

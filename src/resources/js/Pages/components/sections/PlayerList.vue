@@ -8,19 +8,21 @@
         <a class="anchor_tag" href="#">Go to select players and game mode</a>
         
         <div class="player_list">
-            <Player class="player_and_id" v-for="player in players" :key="player.id" :player="player.name" :id="player.id"/>
+            <Player class="player_and_id" v-for="player in players2" :key="player.id" :player="player.name" :id="player.id"/>
         </div>
     </main>
 </template>
 
 <script setup>
 import axios from 'axios';
+import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Btn from '../universal/Btn.vue';
 import Player from '../universal/Player.vue';
 import TextField from '../universal/TextField.vue';
 
 const playerName = ref('');
+
 
 const props = defineProps({
     players: {
@@ -30,24 +32,32 @@ const props = defineProps({
         }
     }
 });
+const players2 = ref(props.players) 
+//zrobic shallow copy array.map(destrukturyzacja ... )
 
-// console.log(props.players)
+
+
+
+
+console.log(props.players)
 
 const addPlayer = () => {
-    axios.post(window.route('players.store'), {
-        name: playerName.value
-    }).then((res) =>{
-        console.log(res)
+    // axios.post(window.route('players.store'), {
+    //     name: playerName.value
+    // }).then((res) =>{
+    //     //router.reload()
 
-    })
-    .catch(err => {
-        console.log(err)
+    // })
+    // .catch(err => {
+    //     console.log(err)
 
-    })
-    .finally(() => {
+    // })
+    // .finally(() => {
 
-    })
-    console.log("test", playerName)
+    // })
+
+
+    props.players.push({id: players[players.length -1], name: playerName.value});
 }
 
 </script>
