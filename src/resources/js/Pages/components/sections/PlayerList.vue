@@ -1,10 +1,10 @@
 <template>
     <main class="main_wrapper">
         <p class="slabo__header">Give me your first and last name</p>
-        <div class="input_name">
-            <TextField class="input_field"/>
-            <Btn class="submit_btn" btnName="Submit"/>
-        </div>
+            <form class="input_name" @submit.prevent="addPlayer">
+                <TextField class="input_field" v-model="playerName"/>
+                <Btn :class="{'submit_btn': true, 'disabled': playerName.length <= 2}" btnName="Submit"/>
+            </form>
         <a class="anchor_tag" href="#">Go to select players and game mode</a>
         
         <div class="player_list">
@@ -14,9 +14,13 @@
 </template>
 
 <script setup>
+import axios from 'axios';
+import { ref } from 'vue';
 import Btn from '../universal/Btn.vue';
 import Player from '../universal/Player.vue';
 import TextField from '../universal/TextField.vue';
+
+const playerName = ref('');
 
 const props = defineProps({
     players: {
@@ -27,7 +31,24 @@ const props = defineProps({
     }
 });
 
-console.log(props.players)
+// console.log(props.players)
+
+const addPlayer = () => {
+    axios.post(window.route('players.store'), {
+        name: playerName.value
+    }).then((res) =>{
+        console.log(res)
+
+    })
+    .catch(err => {
+        console.log(err)
+
+    })
+    .finally(() => {
+
+    })
+    console.log("test", playerName)
+}
 
 </script>
 
@@ -49,7 +70,15 @@ console.log(props.players)
                 margin-left: 8px;
                 width: 87px;
             }
+
         }
+        .disabled {
+            :deep(button) {
+                background-color: #dcdcdc;
+                border: 2px solid #c9c9c9;
+            }
+        }
+        
     }
 
     .player_list {

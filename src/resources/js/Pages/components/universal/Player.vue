@@ -1,13 +1,15 @@
 <template>
-    <main>
+    <Link :href="route('players.show', id)">
         <div class="id_player">
             <p class="id">{{ id }}</p>
             <p class="player"> {{ player }}</p>
         </div>
-    </main>
+    </Link>
 </template>
 
 <script setup>
+import { Link } from '@inertiajs/vue3'
+
 const props = defineProps({
     player: {
         type: String,

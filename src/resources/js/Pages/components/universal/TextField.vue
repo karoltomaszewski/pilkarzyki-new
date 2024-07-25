@@ -6,8 +6,8 @@
             :class="{'input_error': error}"
             :value="modelValue"
             @input="updateValue($event.target.value)"
-            :maxlength="maxlength"
-            :placeholder="placeholder"/>
+            minlength="3"
+            />
             <p :class="{'error': error}">{{error}}</p>
     </div>
 </template>

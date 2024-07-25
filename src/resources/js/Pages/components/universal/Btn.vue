@@ -25,5 +25,10 @@ const props = defineProps({
     margin-bottom: 16px;
     padding: 12px;
     width: 311px;
+
+    &.disabled {
+        background-color: #d7d7d7;
+        border: 2px solid #a4a4a4;
+    }
 }
 </style>
