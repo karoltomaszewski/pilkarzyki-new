@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, router } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
 import axios from "axios";
 
@@ -12,7 +12,7 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) });
 
         app.config.globalProperties.$redirect = function(routeName) {
-            return window.location.href = route(routeName);
+            return router.visit(window.route(routeName));
         }
 
         app.config.globalProperties.$get = function(url, config) {

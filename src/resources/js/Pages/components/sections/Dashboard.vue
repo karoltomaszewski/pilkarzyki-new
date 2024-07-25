@@ -9,7 +9,7 @@
         </div>
         <div class="buttons">
             <Btn btnName="Register Player" 
-                @click="this.$redirect('players.list')"
+                @click="$redirect('players.list')"
                 :class="{ disabled: !isLogged }" />
             
             <Btn btnName="Go to select players and game mode"
@@ -19,11 +19,10 @@
             
             <Btn btnName="Go to see table for players rankings"/>
             
-            <a href="players">go register</a>
+            <a href="players">Go register</a>
         </div>
 
-        <a v-if="isLogged" class="logout" :href="route('logout')">Wyloguj się</a>
- 
+            <a v-if="isLogged" class="logout" :href="route('logout')">Wyloguj się</a>
     </main>
 </template>
 
@@ -32,6 +31,7 @@ import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import ArrisIcon from '../../assets/icons/ArrisIcon.vue';
 import Btn from '../../components/universal/Btn.vue';
+import PlayerList from './PlayerList.vue';
 
 console.log(usePage().props)
 
@@ -41,6 +41,7 @@ const isLogged = ref(props.user);
 
 console.log(props.user?.id);
 console.log(props.user?.email);
+
 
 
 
@@ -101,6 +102,5 @@ console.log(props.user?.email);
             justify-content: center;
         } 
     }
-    
 }
 </style>

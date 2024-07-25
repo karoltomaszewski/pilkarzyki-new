@@ -1,0 +1,62 @@
+<template>
+    <main>
+        <div class="id_player">
+            <p class="id">{{ id }}</p>
+            <p class="player"> {{ player }}</p>
+        </div>
+    </main>
+</template>
+
+<script setup>
+const props = defineProps({
+    player: {
+        type: String,
+        default: ""
+    },
+    id: {
+        type: Number,
+        default: 0
+    }
+});
+
+
+</script>
+<style lang="scss" scoped>
+.id_player {
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+    gap: 8px;
+    line-height: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    .id {
+        background-color: #E0F9FF;
+        border: 1px solid #1F2F32;
+        border-radius: 8px;
+        height: 40px;
+        margin-left: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        width: 40px;
+    
+    }
+    
+    .player {
+        background-color: #E0F9FF;
+        border: 1px solid #1F2F32;
+        border-radius: 8px;
+        flex-grow: 1;
+        padding-left: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        height: 40px;
+        margin-right: 8px;
+
+    }
+}
+
+
+</style>
