@@ -1,23 +1,30 @@
 
 <template>
-    <div class="main_wrapper">
+    <main class="main_wrapper">
         <div class="main_logo">
             <ArrisIcon class="arris"/>
         </div>
         <div class="header">
-            <h2>Choose where You want to go :)</h2>
+            <h1>Choose where You want to go :)</h1>
         </div>
         <div class="buttons">
-            <Btn @click="this.$redirect('players.list')" :class="{ disabled: !isLogged }" btnName="Register Player"/>
-            <Btn :class="{ disabled: !isLogged }" btnName="Go to select players and game mode"/>
+            <Btn btnName="Register Player" 
+                @click="this.$redirect('players.list')"
+                :class="{ disabled: !isLogged }" />
+            
+            <Btn btnName="Go to select players and game mode"
+                :class="{ disabled: !isLogged }" />
+            
             <Btn btnName="Go to see tournament"/>
+            
             <Btn btnName="Go to see table for players rankings"/>
+            
             <a href="players">go register</a>
         </div>
-        <div v-if="isLogged" class="logout">
-            <a :href="route('logout')">Wyloguj się</a>
-        </div>
-    </div>
+
+        <a v-if="isLogged" class="logout" :href="route('logout')">Wyloguj się</a>
+ 
+    </main>
 </template>
 
 <script setup>
@@ -30,7 +37,7 @@ console.log(usePage().props)
 
 
 const { props } = usePage();
-const isLogged = props.user;
+const isLogged = ref(props.user);
 
 console.log(props.user?.id);
 console.log(props.user?.email);
@@ -61,7 +68,7 @@ console.log(props.user?.email);
     }
       
     .header {
-        h2 {
+        h1 {
             align-items: center;
             display: flex;
             font-family: "Russo One", sans-serif;
