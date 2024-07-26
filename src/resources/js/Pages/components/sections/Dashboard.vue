@@ -52,6 +52,7 @@ console.log(props.user?.email);
 .main_wrapper {
     .arris {
         margin-left: 72px;
+
     }
 
     .buttons {
@@ -69,17 +70,18 @@ console.log(props.user?.email);
     }
       
     .header {
-        h1 {
-            align-items: center;
-            display: flex;
-            font-family: "Russo One", sans-serif;
-            font-size: 40px;
-            font-weight: 400;
-            font-style: normal;
-            justify-content: center;
-            line-height: 48px;
-            margin-bottom: 40px;
-          }
+        align-items: center;
+        display: flex;
+        font-family: "Russo One", sans-serif;
+        font-size: 40px;
+        font-weight: 400;
+        font-style: normal;
+        justify-content: center;
+        line-height: 48px;
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        text-justify: auto;
     }
     
     .logout {

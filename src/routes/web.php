@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PlayersController;
+use App\Http\Controllers\TournamentsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
@@ -27,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/players/{player}", [PlayersController::class, 'show'])->name('players.show');
 
     Route::post("/players", [PlayersController::class, 'store'])->name('players.store');
-    Route::get("/tournaments/new", [PlayersController::class, 'index'])->name('tournaments.new');
+    Route::get("/tournaments/new", [TournamentsController::class, 'index'])->name('tournaments.new');
 
     Route::get('/l', [LoginController::class, 'logout'])->name('logout');
 });
