@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property int $id
  * @property string $name
- * @property string $elo
  */
-class Player extends Model
+class Tournament extends Model
 {
     use SoftDeletes;
 }

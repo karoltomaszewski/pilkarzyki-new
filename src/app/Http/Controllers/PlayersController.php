@@ -18,6 +18,13 @@ class PlayersController extends Controller
         ]);
     }
 
+    public function ranking(Request $request): Response
+    {
+        return Inertia::render('Ranking', [
+            'players' => Player::query()->orderByDesc('elo')->get()
+        ]);
+    }
+
     public function show(Request $request, Player $player): Response
     {
         return Inertia::render('Player', [
@@ -39,5 +46,12 @@ class PlayersController extends Controller
             'name' => $player->name,
             'elo' => $player->elo,
         ], 201);
+    }
+
+    public function destroy(Player $player): JsonResponse
+    {
+        $player->delete();
+
+        return new JsonResponse([], 204);
     }
 }
