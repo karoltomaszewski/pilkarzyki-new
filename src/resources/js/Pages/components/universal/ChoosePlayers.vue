@@ -1,14 +1,24 @@
 <template>
     <form class="choose_players">
         <p class="slabo__header">Choose players</p>
-        <label class="player_label" v-for="player in sortedPlayers" :key="player.id">
+        <!-- <label class="player_label" v-for="player in players" :key="player.id">
             <p>{{player.name}}</p>
-            <input type="checkbox" name="players" value="player" />
-        </label>
+            <input id="player_checkbox" type="checkbox" name="players" value="checked" />
+        </label> -->
+
+        <p>{{selectedPlayers}}</p>
+        <div class="players_list" v-for="player in players" :key="player.id" @click="addPlayer(player.id)">
+            <div class="checkbox">
+                <div class="inner_square" :class="[selectedPlayers.includes(player.id) && 'selected']"></div>
+            </div>
+            <p>{{player.name}}</p>
+        </div>
     </form>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
     players: {
         type: Array,
@@ -18,7 +28,17 @@ const props = defineProps({
     }
 });
 
-const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
+const selectedPlayers = ref([]);
+
+// const x = document.getElementById("myCheck").value;
+
+function addPlayer(id) {
+    if (selectedPlayers.value.includes(id)) {
+
+    } else {
+        selectedPlayers.value.push(id);
+    }
+}
 
 </script>
 
@@ -28,12 +48,27 @@ const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
     flex-direction: column;
     margin-bottom: 12px;
 
-    .player_label {
-        display: flex;
-        flex-direction: row-reverse;
-        gap: 8px;
-        justify-content: flex-end;
-    }
+    .players_list {
+        .checkbox {
+            align-items: center;
+            border: 1px solid black; 
+            display: flex;
+            justify-content: center;
+            height: 20px;
+            width: 20px;
+        }
+        .inner_square {
+            background-color: transparent;
+            height: 0.5rem;
+            width: 0.5rem;
+
+            &.selected {
+                background-color: rgb(0, 0, 0);
+        }
+        }
+    } 
+
+
 
     .slabo {
         font-family: "Slabo 13px", serif;
