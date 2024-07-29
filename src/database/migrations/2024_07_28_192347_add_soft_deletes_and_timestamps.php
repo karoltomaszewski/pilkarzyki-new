@@ -21,11 +21,6 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('team_stats', function (Blueprint $table) {
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::table('teams', function (Blueprint $table) {
             $table->timestamps();
             $table->softDeletes();

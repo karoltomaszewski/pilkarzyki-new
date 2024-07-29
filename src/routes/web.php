@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post("/players", [PlayersController::class, 'store'])->name('players.store');
     Route::delete("/players/{player}", [PlayersController::class, 'destroy'])->name('players.destroy');
     Route::get("/tournaments/new", [TournamentsController::class, 'newTournament'])->name('tournaments.new');
+    Route::post("/tournaments", [TournamentsController::class, 'store'])->name('tournaments.store');
 
     Route::get('/l', [LoginController::class, 'logout'])->name('logout');
 });
