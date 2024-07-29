@@ -1,17 +1,12 @@
 <template>
     <form class="choose_players">
         <p class="slabo__header">Choose players</p>
-        <!-- <label class="player_label" v-for="player in players" :key="player.id">
-            <p>{{player.name}}</p>
-            <input id="player_checkbox" type="checkbox" name="players" value="checked" />
-        </label> -->
-
         <p>{{selectedPlayers}}</p>
         <div class="players_list" v-for="player in players" :key="player.id" @click="addPlayer(player.id)">
             <div class="checkbox">
                 <div class="inner_square" :class="[selectedPlayers.includes(player.id) && 'selected']"></div>
             </div>
-            <p>{{player.name}}</p>
+            <p>{{player.name}}  ( {{ player.elo}} )</p>
         </div>
     </form>
 </template>
@@ -30,15 +25,16 @@ const props = defineProps({
 
 const selectedPlayers = ref([]);
 
-// const x = document.getElementById("myCheck").value;
 
 function addPlayer(id) {
     if (selectedPlayers.value.includes(id)) {
-
+        alert("You already added this player!") // docelowo modal
     } else {
         selectedPlayers.value.push(id);
     }
 }
+
+
 
 </script>
 
@@ -49,6 +45,8 @@ function addPlayer(id) {
     margin-bottom: 12px;
 
     .players_list {
+        display: flex;
+        gap: 8px;
         .checkbox {
             align-items: center;
             border: 1px solid black; 

@@ -4,7 +4,7 @@
         <TextField class="input_field" />
         <ChoosePlayers :players="sortedPlayers" />
         <p class="slabo__header">How many revanges:</p>
-        <TextField class="input_field" />
+        <SelectRevanges />
         <GameMode />     
         <Btn class="submit_btn" btnName="Submit" />
     </main>
@@ -15,6 +15,7 @@
 import Btn from '../universal/Btn.vue';
 import ChoosePlayers from '../universal/ChoosePlayers.vue';
 import GameMode from '../universal/GameMode.vue';
+import SelectRevanges from '../universal/SelectRevanges.vue';
 import TextField from '../universal/TextField.vue';
 
 const props = defineProps({
