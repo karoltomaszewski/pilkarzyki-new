@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('games', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('players', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('team_stats', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('teams', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('tournament_teams', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('tournaments', function (Blueprint $table) {
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+    }
+};

@@ -23,22 +23,26 @@ use Inertia\Inertia;
 */
 
 Route::middleware(['auth'])->group(function () {
-
     Route::get("/players", [PlayersController::class, 'index'])->name('players.list');
     Route::get("/players/{player}", [PlayersController::class, 'show'])->name('players.show');
 
     Route::post("/players", [PlayersController::class, 'store'])->name('players.store');
-    Route::get("/tournaments/new", [TournamentsController::class, 'index'])->name('tournaments.new');
+    Route::delete("/players/{player}", [PlayersController::class, 'destroy'])->name('players.destroy');
+    Route::get("/tournaments/new", [TournamentsController::class, 'newTournament'])->name('tournaments.new');
 
     Route::get('/l', [LoginController::class, 'logout'])->name('logout');
 });
 
-// Route::middleware(['guest'])->group(function () {
+ Route::middleware(['guest'])->group(function () {
+    Route::get("/ranking", [PlayersController::class, 'ranking'])->name('players.ranking');
+    Route::get("/tournaments", [TournamentsController::class, 'index'])->name('tournaments.list');
+
+
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::get('/register', [LoginController::class, 'showRegister'])->name('showRegister');
     Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
     Route::post('/register', [LoginController::class, 'register'])->name('register');
-// });
+ });
 
 Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
 
