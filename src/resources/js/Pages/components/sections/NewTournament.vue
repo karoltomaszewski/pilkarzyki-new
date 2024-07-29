@@ -4,11 +4,9 @@
         <TextField class="input_field" v-model="tournamentName"/>
         <p>{{input}}</p>
         <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
-        <p>{{selectedPlayers}}</p>
         <p class="slabo__header">How many revanges:</p>
         <SelectRevanges />
         <GameMode v-model="form.selectedGameMode"/>   
-        <p>{{tournamentName.length}} {{selectedPlayers.length}}</p>
         <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
         @click="sendForm"
         />

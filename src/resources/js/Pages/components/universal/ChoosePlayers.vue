@@ -59,6 +59,7 @@ watch(selectedPlayers, (newValue) => {
         .checkbox {
             align-items: center;
             border: 1px solid black; 
+            border-radius: 6px;
             display: flex;
             justify-content: center;
             height: 20px;
