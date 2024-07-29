@@ -1,12 +1,14 @@
 <template>
     <form class="game_mode">
         <p class="slabo__header">Choose game mode:</p>
-        <input type="radio" id="ladder" name="game_mode" value="ladder">
-        <label for="html">Ladder</label><br>
-        <input type="radio" id="table" name="game_mode" value="table">
-        <label for="css">Table</label><br>
-        <input type="radio" id="ladder_with_loser" name="game_mode" value="Ladder_with_loser">
-        <label for="javascript">Ladder with loser</label>
+        <div class="radio">
+            <input type="radio" id="ladder" name="game_mode" value="ladder">
+            <label for="html">Ladder</label><br>
+            <input type="radio" id="table" name="game_mode" value="table">
+            <label for="css">Table</label><br>
+            <input type="radio" id="ladder_with_loser" name="game_mode" value="Ladder_with_loser">
+            <label for="javascript">Ladder with loser</label>
+        </div>
     </form>
 </template>
 
@@ -16,7 +18,13 @@
 
 <style lang="scss" scoped>
 .game_mode {
+
+    align-items: center;
     margin-bottom: 12px;
+
+    label {
+        margin-left: 8px;
+    }
 
     .slabo {
         font-family: "Slabo 13px", serif;

@@ -1,13 +1,8 @@
 <template>
     <main class="main_wrapper">
         <p class="slabo__header">Name of tournament:</p>
-            <TextField class="input_field" />
-            <div class="players">
-                <p class="slabo__header">Choose players:</p>
-                <p v-for="player in players" :key="player.id">
-                    {{ player.name }}
-                </p>
-        </div>
+        <TextField class="input_field" />
+        <ChoosePlayers :players="players" />
         <p class="slabo__header">How many revanges:</p>
         <TextField class="input_field" />
         <GameMode />     
@@ -18,6 +13,7 @@
 
 <script setup>
 import Btn from '../universal/Btn.vue';
+import ChoosePlayers from '../universal/ChoosePlayers.vue';
 import GameMode from '../universal/GameMode.vue';
 import TextField from '../universal/TextField.vue';
 
