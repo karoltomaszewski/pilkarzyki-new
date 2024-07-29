@@ -60,6 +60,10 @@ console.log(props.user?.email);
         display: flex;
         flex-direction: column;
         justify-content: center;
+        
+        :deep(button) {
+            width: 311px;
+        }
 
         .disabled {
             :deep(button) {

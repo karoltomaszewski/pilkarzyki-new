@@ -66,12 +66,13 @@ const addPlayer = () => {
 }
 
 const handleDelete = (id) => {
-    console.log('id: ', id)
+    console.log('deleted player id: ', id)
     players2.value = players2.value.filter(player => player.id !== id);
 
 
 }
-console.log(props.players)
+//console.log(props.players)
+
 // const elo = () => {
 //         axios.get(window.route('players.show', 1)).then((res) => {
 //             console.log(res.data)
