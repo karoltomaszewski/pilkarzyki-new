@@ -3,16 +3,14 @@
         <p class="slabo__header">Name of tournament:</p>
             <TextField class="input_field" />
             <div class="players">
-            <p class="slabo__header">Choose players:</p>
-            <p v-for="player in players" :key="player.id">
-                {{ player.name }}
-            </p>
+                <p class="slabo__header">Choose players:</p>
+                <p v-for="player in players" :key="player.id">
+                    {{ player.name }}
+                </p>
         </div>
-  
         <p class="slabo__header">How many revanges:</p>
         <TextField class="input_field" />
-        <p class="slabo__header">Choose game mode:</p>
-            
+        <GameMode />     
         <Btn class="submit_btn" btnName="Submit" />
     </main>
 
@@ -20,6 +18,7 @@
 
 <script setup>
 import Btn from '../universal/Btn.vue';
+import GameMode from '../universal/GameMode.vue';
 import TextField from '../universal/TextField.vue';
 
 const props = defineProps({

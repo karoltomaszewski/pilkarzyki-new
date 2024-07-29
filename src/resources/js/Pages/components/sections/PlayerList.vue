@@ -68,13 +68,13 @@ const handleDelete = (id) => {
     
     .then(res => {
         // console.log(`Deleted player with ID ${player.id}`);
+        players2.value = players2.value.filter(player => player.id !== id); // usuniecie playera na froncie
     })
     .catch(error => {
         console.error(error);
     });
     
 
-    players2.value = players2.value.filter(player => player.id !== id);
 }
 
 
