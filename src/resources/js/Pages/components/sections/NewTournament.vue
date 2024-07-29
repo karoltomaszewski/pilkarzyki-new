@@ -10,7 +10,7 @@
         <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
         @click="sendForm"
         />
-        <Loader v-if="!isLoader"/>
+        <Loader v-if="isLoader"/>
     </main>
 
 </template>
@@ -51,11 +51,14 @@ const form = ref({
 
 
 const sendForm = () => {
+    isLoader.value = true;
     axios.post(window.route('players.store'), 
         form.value
     ).then((res) => {
         console.log(res);
         //router.reload()
+
+        
 
         form.value.push({
             tournamentName: '',
@@ -63,6 +66,13 @@ const sendForm = () => {
             selectedRevanges: 0,
             selectedPlayers: []
         });
+    })
+    .catch((error) => {
+        console.error(error);
+      
+    })
+    .finally(() => {
+        isLoader.value = false; 
     });
 }
 
