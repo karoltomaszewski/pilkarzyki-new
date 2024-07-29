@@ -32,12 +32,15 @@ function addPlayer(id) {
         // console.log(selectedPlayers.value.toSpliced(id, 1));
         selectedPlayers.value = selectedPlayers.value.filter(player => player !== id)
     } else {
+        // selectedPlayers.value = [...selectedPlayers.value, id]
         selectedPlayers.value.push(id);
     }
 }
 
 watch(selectedPlayers, (newValue) => {
     emit('update:selectedPlayers', newValue);
+}, {
+    deep: true
 });
 
 

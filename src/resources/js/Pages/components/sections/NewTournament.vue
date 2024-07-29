@@ -8,18 +8,24 @@
         <p class="slabo__header">How many revanges:</p>
         <SelectRevanges />
         <GameMode v-model="form.selectedGameMode"/>   
-        <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" />
+        <p>{{tournamentName.length}} {{selectedPlayers.length}}</p>
+        <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
+        @click="sendForm"
+        />
+        <Loader v-if="!isLoader"/>
     </main>
 
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref } from 'vue';
 import Btn from '../universal/Btn.vue';
 import ChoosePlayers from '../universal/ChoosePlayers.vue';
 import GameMode from '../universal/GameMode.vue';
 import SelectRevanges from '../universal/SelectRevanges.vue';
 import TextField from '../universal/TextField.vue';
+import Loader from '../universal/Loader.vue';
 
 const props = defineProps({
     players: {
@@ -35,13 +41,32 @@ const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
 const input = ref('');
 const value = ref(null);
 const tournamentName = ref('');
+const selectedPlayers = ref([]);
+const isLoader = ref('false');
 
 const form = ref({
     tournamentName: '',
     selectedGameMode: '1',
+    selectedRevanges: 0,
+    selectedPlayers: []
 })
 
-const selectedPlayers = ref([]);
+
+const sendForm = () => {
+    axios.post(window.route('players.store'), 
+        form.value
+    ).then((res) => {
+        console.log(res);
+        //router.reload()
+
+        form.value.push({
+            tournamentName: '',
+            selectedGameMode: '1',
+            selectedRevanges: 0,
+            selectedPlayers: []
+        });
+    });
+}
 
 function handleSelectedPlayers(newSelectedPlayers) {
     selectedPlayers.value = newSelectedPlayers;
