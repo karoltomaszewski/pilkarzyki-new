@@ -2,7 +2,7 @@
     <main class="main_wrapper">
         <p class="slabo__header">Name of tournament:</p>
         <TextField class="input_field" />
-        <ChoosePlayers :players="players" />
+        <ChoosePlayers :players="sortedPlayers" />
         <p class="slabo__header">How many revanges:</p>
         <TextField class="input_field" />
         <GameMode />     
@@ -26,7 +26,8 @@ const props = defineProps({
     }
 });
 
-// const tournamentName = ref('');
+const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
+
 
 </script>
 

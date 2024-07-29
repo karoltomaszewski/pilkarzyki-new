@@ -1,7 +1,7 @@
 <template>
     <form class="choose_players">
         <p class="slabo__header">Choose players</p>
-        <label class="player_label" v-for="player in players" :key="player.id">
+        <label class="player_label" v-for="player in sortedPlayers" :key="player.id">
             <p>{{player.name}}</p>
             <input type="checkbox" name="players" value="player" />
         </label>
@@ -17,6 +17,8 @@ const props = defineProps({
         }
     }
 });
+
+const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
 
 </script>
 
