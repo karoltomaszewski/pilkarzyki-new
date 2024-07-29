@@ -60,17 +60,26 @@ const addPlayer = () => {
     .finally(() => {
 
     })
-
-    
-
 }
 
 const handleDelete = (id) => {
-    console.log('deleted player id: ', id)
+
+    axios.delete(window.route('players.destroy', id))
+    
+    .then(res => {
+        // console.log(`Deleted player with ID ${player.id}`);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+    
+
     players2.value = players2.value.filter(player => player.id !== id);
-
-
 }
+
+
+
+
 //console.log(props.players)
 
 // const elo = () => {

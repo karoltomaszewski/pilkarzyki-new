@@ -6,7 +6,7 @@
                 <p class="player"> {{ player }}</p>
             </div>
         </Link>
-        <button @click="emits('delete')">delete</button>
+        <button @click="emits('delete')">Delete</button>
     </div>
 </template>
 
@@ -68,13 +68,12 @@ const emits = defineEmits(['delete']);
             background-color: #E0F9FF;
             border: 1px solid #1F2F32;
             border-radius: 8px;
-            flex-grow: 1;
             padding-left: 16px;
             padding-top: 12px;
             padding-bottom: 12px;
             height: 40px;
-            margin-right: 8px;
-    
+            width: 376px;
+
         }
     }
 }
