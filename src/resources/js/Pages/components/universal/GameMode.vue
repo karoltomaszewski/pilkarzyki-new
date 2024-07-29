@@ -2,23 +2,23 @@
     <form class="game_mode">
         <p class="slabo__header">Choose game mode:</p>
         <div class="radio">
-            <input type="radio" id="ladder" name="game_mode" value="ladder">
-            <label for="html">Ladder</label><br>
-            <input type="radio" id="table" name="game_mode" value="table">
-            <label for="css">Table</label><br>
-            <input type="radio" id="ladder_with_loser" name="game_mode" value="Ladder_with_loser">
-            <label for="javascript">Ladder with loser</label>
+            <input type="radio" id="ladder" name="game_mode" value="1" v-model="selectedGameMode">
+            <label for="ladder">Ladder</label><br>
+            <input type="radio" id="table" name="game_mode" value="2" v-model="selectedGameMode">
+            <label for="table">Table</label><br>
+            <input type="radio" id="ladder_with_loser" name="game_mode" value="3" v-model="selectedGameMode">
+            <label for="ladder_with_loser">Ladder with loser</label>
         </div>
     </form>
 </template>
 
 <script setup>
-
+import { ref } from 'vue';
+const selectedGameMode = defineModel();
 </script>
 
 <style lang="scss" scoped>
 .game_mode {
-
     align-items: center;
     margin-bottom: 12px;
 

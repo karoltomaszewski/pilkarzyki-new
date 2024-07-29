@@ -1,17 +1,20 @@
 <template>
     <main class="main_wrapper">
         <p class="slabo__header">Name of tournament:</p>
-        <TextField class="input_field" />
-        <ChoosePlayers :players="sortedPlayers" />
+        <TextField class="input_field" v-model="tournamentName"/>
+        <p>{{input}}</p>
+        <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
+        <p>{{selectedPlayers}}</p>
         <p class="slabo__header">How many revanges:</p>
         <SelectRevanges />
-        <GameMode />     
-        <Btn class="submit_btn" btnName="Submit" />
+        <GameMode v-model="form.selectedGameMode"/>   
+        <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" />
     </main>
 
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import Btn from '../universal/Btn.vue';
 import ChoosePlayers from '../universal/ChoosePlayers.vue';
 import GameMode from '../universal/GameMode.vue';
@@ -27,8 +30,22 @@ const props = defineProps({
     }
 });
 
-const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
 
+const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
+const input = ref('');
+const value = ref(null);
+const tournamentName = ref('');
+
+const form = ref({
+    tournamentName: '',
+    selectedGameMode: '1',
+})
+
+const selectedPlayers = ref([]);
+
+function handleSelectedPlayers(newSelectedPlayers) {
+    selectedPlayers.value = newSelectedPlayers;
+}
 
 </script>
 
@@ -49,7 +66,7 @@ const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
         max-height: 400px;
         overflow-y: auto;
         width: 324px;
-      }
+    }
 }
 
 .slabo {

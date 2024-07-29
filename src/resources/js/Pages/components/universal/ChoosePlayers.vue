@@ -1,18 +1,20 @@
 <template>
     <form class="choose_players">
         <p class="slabo__header">Choose players</p>
-        <p>{{selectedPlayers}}</p>
+        <!-- <p>{{selectedPlayers}}</p> -->
         <div class="players_list" v-for="player in players" :key="player.id" @click="addPlayer(player.id)">
             <div class="checkbox">
                 <div class="inner_square" :class="[selectedPlayers.includes(player.id) && 'selected']"></div>
             </div>
-            <p>{{player.name}}  ( {{ player.elo}} )</p>
+            <p>{{player.name}}  ({{ player.elo}})</p>
         </div>
     </form>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+const emit = defineEmits(['update:selectedPlayers']);
 
 const props = defineProps({
     players: {
@@ -25,14 +27,18 @@ const props = defineProps({
 
 const selectedPlayers = ref([]);
 
-
 function addPlayer(id) {
     if (selectedPlayers.value.includes(id)) {
-        alert("You already added this player!") // docelowo modal
+        // console.log(selectedPlayers.value.toSpliced(id, 1));
+        selectedPlayers.value = selectedPlayers.value.filter(player => player !== id)
     } else {
         selectedPlayers.value.push(id);
     }
 }
+
+watch(selectedPlayers, (newValue) => {
+    emit('update:selectedPlayers', newValue);
+});
 
 
 
