@@ -4,10 +4,8 @@
 </div>
 </template>
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
 import LoaderIcon from '../../assets/icons/LoaderIcon.vue';
-
-
+import { onMounted, onUnmounted } from 'vue';
 
 onMounted(() => {
     document.querySelector('body').classList.add('block_scroll');

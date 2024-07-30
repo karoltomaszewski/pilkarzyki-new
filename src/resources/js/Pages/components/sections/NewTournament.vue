@@ -10,8 +10,9 @@
         <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
         @click="sendForm"
         />
-        <Loader v-if="!isLoader" :class="{ loader: isLoader }"/>
-    </main>
+        <Loader v-if="!isLoader"/>
+        <Team />
+    </main> 
 
 </template>
 
@@ -24,19 +25,8 @@ import GameMode from '../universal/GameMode.vue';
 import SelectRevanges from '../universal/SelectRevanges.vue';
 import TextField from '../universal/TextField.vue';
 import Loader from '../universal/Loader.vue';
+import Team from '../universal/Team.vue';
 
-
-import { onMounted, onUnmounted } from 'vue';
-
-
-
-onMounted(() => {
-    document.querySelector('body').classList.add('block_scroll');
-})
-
-onUnmounted(() => {
-    document.querySelector('body').classList.remove('block_scroll');
-})
 
 const props = defineProps({
     players: {
@@ -53,7 +43,7 @@ const input = ref('');
 const value = ref(null);
 const tournamentName = ref('');
 const selectedPlayers = ref([]);
-const isLoader = ref('false');
+const isLoader = 'false';
 
 const form = ref({
     tournamentName: '',
