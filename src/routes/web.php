@@ -35,8 +35,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
  Route::middleware(['guest'])->group(function () {
-    Route::get("/ranking", [PlayersController::class, 'ranking'])->name('players.ranking');
-    Route::get("/tournaments", [TournamentsController::class, 'index'])->name('tournaments.list');
 
 
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -46,4 +44,7 @@ Route::middleware(['auth'])->group(function () {
  });
 
 Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
+Route::get("/tournaments", [TournamentsController::class, 'index'])->name('tournaments.list');
+Route::get("/ranking", [PlayersController::class, 'ranking'])->name('players.ranking');
+
 

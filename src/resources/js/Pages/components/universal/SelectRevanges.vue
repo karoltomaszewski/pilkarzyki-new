@@ -1,5 +1,5 @@
 <template>
-    <select name="revange" class="revanges">How many revanges:
+    <select v-model="selectVal" name="revange" class="revanges">How many revanges:
         <option value="null">0</option>
         <option value="one">1</option>
         <option value="two">2</option>
@@ -8,6 +8,8 @@
 
 <script setup>
 
+
+const selectVal = defineModel();
 </script>
 
 <style lang="scss" scoped>

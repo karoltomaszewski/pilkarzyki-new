@@ -1,14 +1,14 @@
 <template>
     <main class="main_wrapper">
         <Layout>
-            <button @click="test">sadasdas</button>
+            <!-- <button @click="test">sadasdas</button> -->
             <p class="slabo__header">Name of tournament:</p>
-            <TextField class="input_field" v-model="tournamentName"/>
+            <TextField class="input_field" v-model="form.tournamentName"/>
             <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
             <p class="slabo__header">How many revanges:</p>
-            <SelectRevanges />
+            <SelectRevanges v-model="form.selectedRevanges"/>
             <GameMode v-model="form.selectedGameMode"/>   
-            <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
+            <Btn class="button" :class="{ disabled: (form.tournamentName.length < 3 || form.selectedPlayers.length < 4) }" btnName="Submit" 
             @click="sendForm"
             />
 
@@ -39,8 +39,8 @@ const props = defineProps({
 
 const store = useMainStore();
 
-const test = () => {
-    store.showSnackbar();
+const snackbarHandler = (type, desc) => {
+    store.showSnackbar(type, desc);
 
     setTimeout(() => {
         store.closeSnackbar();
@@ -58,7 +58,7 @@ const selectedPlayers = ref([]);
 const form = ref({
     tournamentName: '',
     selectedGameMode: '1',
-    selectedRevanges: 0,
+    selectedRevanges: null,
     selectedPlayers: []
 })
 
@@ -67,11 +67,11 @@ const form = ref({
 const sendForm = () => {
     // isLoader.value = true;
     store.isLoader = true;
-    axios.post(window.route('players.store'), 
+    axios.post(window.route('tournaments.store'), 
         form.value
     ).then((res) => {
         console.log(res);
-        //router.reload()
+        snackbarHandler('success', "New tournament created!");
 
         form.value.push({
             tournamentName: '',
@@ -79,9 +79,12 @@ const sendForm = () => {
             selectedRevanges: 0,
             selectedPlayers: []
         });
+
+
     })
     .catch((error) => {
         console.error(error);
+        snackbarHandler('error', "error");
       
     })
     .finally(() => {
@@ -90,7 +93,7 @@ const sendForm = () => {
 }
 
 function handleSelectedPlayers(newSelectedPlayers) {
-    selectedPlayers.value = newSelectedPlayers;
+    form.value.selectedPlayers = newSelectedPlayers;
 }
 
 </script>

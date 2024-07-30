@@ -53,6 +53,10 @@ console.log(props.user?.email);
 
 <style lang="scss" scoped>
 .main_wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
     .arris {
         margin-left: 72px;
 
