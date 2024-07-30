@@ -4,7 +4,19 @@
 </div>
 </template>
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
 import LoaderIcon from '../../assets/icons/LoaderIcon.vue';
+
+
+
+onMounted(() => {
+    document.querySelector('body').classList.add('block_scroll');
+})
+
+onUnmounted(() => {
+    document.querySelector('body').classList.remove('block_scroll');
+})
+
 </script>
 <style lang="scss" scoped>
 .loader {

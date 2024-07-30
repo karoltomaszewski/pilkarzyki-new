@@ -10,7 +10,7 @@
         <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
         @click="sendForm"
         />
-        <Loader v-if="isLoader"/>
+        <Loader v-if="!isLoader" :class="{ loader: isLoader }"/>
     </main>
 
 </template>
@@ -24,6 +24,19 @@ import GameMode from '../universal/GameMode.vue';
 import SelectRevanges from '../universal/SelectRevanges.vue';
 import TextField from '../universal/TextField.vue';
 import Loader from '../universal/Loader.vue';
+
+
+import { onMounted, onUnmounted } from 'vue';
+
+
+
+onMounted(() => {
+    document.querySelector('body').classList.add('block_scroll');
+})
+
+onUnmounted(() => {
+    document.querySelector('body').classList.remove('block_scroll');
+})
 
 const props = defineProps({
     players: {
@@ -51,7 +64,7 @@ const form = ref({
 
 
 const sendForm = () => {
-    isLoader.value = true;
+    isLoader.value = ref('true');
     axios.post(window.route('players.store'), 
         form.value
     ).then((res) => {
@@ -100,6 +113,11 @@ function handleSelectedPlayers(newSelectedPlayers) {
         overflow-y: auto;
         width: 324px;
     }
+
+
+        overflow-x: hidden;
+        overflow-y: hidden;
+
 }
 
 .slabo {
