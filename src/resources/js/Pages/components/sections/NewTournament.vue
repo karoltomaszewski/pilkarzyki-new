@@ -1,17 +1,18 @@
 <template>
     <main class="main_wrapper">
-        <p class="slabo__header">Name of tournament:</p>
-        <TextField class="input_field" v-model="tournamentName"/>
-        <p>{{input}}</p>
-        <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
-        <p class="slabo__header">How many revanges:</p>
-        <SelectRevanges />
-        <GameMode v-model="form.selectedGameMode"/>   
-        <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
-        @click="sendForm"
-        />
-        <Loader v-if="!isLoader"/>
-        <Team />
+        <Layout>
+            <button @click="test">sadasdas</button>
+            <p class="slabo__header">Name of tournament:</p>
+            <TextField class="input_field" v-model="tournamentName"/>
+            <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
+            <p class="slabo__header">How many revanges:</p>
+            <SelectRevanges />
+            <GameMode v-model="form.selectedGameMode"/>   
+            <Btn class="button" :class="{ disabled: (tournamentName.length < 3 || selectedPlayers.length < 4) }" btnName="Submit" 
+            @click="sendForm"
+            />
+
+        </Layout>
     </main> 
 
 </template>
@@ -19,14 +20,13 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue';
+import { useMainStore } from '../../../store/mainStore';
 import Btn from '../universal/Btn.vue';
 import ChoosePlayers from '../universal/ChoosePlayers.vue';
 import GameMode from '../universal/GameMode.vue';
+import Layout from '../../layouts/Layout.vue';
 import SelectRevanges from '../universal/SelectRevanges.vue';
 import TextField from '../universal/TextField.vue';
-import Loader from '../universal/Loader.vue';
-import Team from '../universal/Team.vue';
-
 
 const props = defineProps({
     players: {
@@ -37,13 +37,23 @@ const props = defineProps({
     }
 });
 
+const store = useMainStore();
+
+const test = () => {
+    store.showSnackbar();
+
+    setTimeout(() => {
+        store.closeSnackbar();
+    }, "3000");
+}
+
+
 
 const sortedPlayers = props.players.sort((a, b) => b.elo - a.elo);
 const input = ref('');
 const value = ref(null);
 const tournamentName = ref('');
 const selectedPlayers = ref([]);
-const isLoader = 'false';
 
 const form = ref({
     tournamentName: '',
@@ -53,15 +63,15 @@ const form = ref({
 })
 
 
+
 const sendForm = () => {
-    isLoader.value = ref('true');
+    // isLoader.value = true;
+    store.isLoader = true;
     axios.post(window.route('players.store'), 
         form.value
     ).then((res) => {
         console.log(res);
         //router.reload()
-
-        
 
         form.value.push({
             tournamentName: '',
@@ -75,7 +85,7 @@ const sendForm = () => {
       
     })
     .finally(() => {
-        isLoader.value = false; 
+        store.isLoader = false;
     });
 }
 
@@ -103,11 +113,6 @@ function handleSelectedPlayers(newSelectedPlayers) {
         overflow-y: auto;
         width: 324px;
     }
-
-
-        overflow-x: hidden;
-        overflow-y: hidden;
-
 }
 
 .slabo {

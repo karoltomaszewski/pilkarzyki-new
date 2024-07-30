@@ -2,6 +2,10 @@ import { createApp, h } from 'vue';
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import { ZiggyVue } from 'ziggy-js';
 import axios from "axios";
+import {createPinia} from "pinia";
+
+
+const pinia = createPinia();
 
 createInertiaApp({
     resolve: name => {
@@ -9,7 +13,7 @@ createInertiaApp({
         return pages[`./Pages/components/sections/${name}.vue`]
     },
     setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) });
+        const app = createApp({ render: () => h(App, props) }).use(pinia);
 
         app.config.globalProperties.$redirect = function(routeName) {
             return router.visit(window.route(routeName));

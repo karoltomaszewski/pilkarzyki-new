@@ -1,6 +1,7 @@
 
 <template>
     <main class="main_wrapper">
+        <Layout>
         <div class="main_logo">
             <ArrisIcon class="arris"/>
         </div>
@@ -23,6 +24,7 @@
         </div>
 
             <a v-if="isLogged" class="logout" :href="route('logout')">Wyloguj się</a>
+        </Layout>
     </main>
 </template>
 
@@ -31,6 +33,7 @@ import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import ArrisIcon from '../../assets/icons/ArrisIcon.vue';
 import Btn from '../../components/universal/Btn.vue';
+import Layout from '../../layouts/Layout.vue';
 import PlayerList from './PlayerList.vue';
 
 console.log(usePage().props)

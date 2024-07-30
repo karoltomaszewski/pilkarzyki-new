@@ -28,6 +28,7 @@
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.6.2",
         "path": "^0.12.7",
+        "pinia": "^2.2.0",
         "vue": "^3.4.21"
     }
 }

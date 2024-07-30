@@ -1,16 +1,18 @@
 <template>
     <main class="main_wrapper">
-        <p class="slabo__header">Give me your first and last name</p>
-        <form class="input_name" @submit.prevent="addPlayer">
-            <TextField class="input_field" v-model="playerName" />
-            <Btn :class="{ 'submit_btn': true, 'disabled': playerName.length <= 2 }" btnName="Submit" />
-        </form>
-        <a class="anchor_tag" href="#">Go to select players and game mode</a>
+        <Layout>
+            <p class="slabo__header">Give me your first and last name</p>
+            <form class="input_name" @submit.prevent="addPlayer">
+                <TextField class="input_field" v-model="playerName" />
+                <Btn :class="{ 'submit_btn': true, 'disabled': playerName.length <= 2 }" btnName="Submit" />
+            </form>
+            <a class="anchor_tag" href="#">Go to select players and game mode</a>
 
-        <div class="player_list">
+            <div class="player_list">
             <Player class="player_and_id" v-for="player in players2" :key="player.id" :player="player.name" @delete="handleDelete(player.id)"
                 :id="player.id" />
-        </div>
+            </div>
+        </Layout>
     </main>
 </template>
 
@@ -21,6 +23,7 @@ import { ref } from 'vue';
 import Btn from '../universal/Btn.vue';
 import Player from '../universal/Player.vue';
 import TextField from '../universal/TextField.vue';
+import Layout from '../../layouts/Layout.vue';
 
 const playerName = ref('');
 
