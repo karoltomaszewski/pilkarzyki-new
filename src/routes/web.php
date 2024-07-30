@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get("/", [DashboardController::class, 'index'])->name('dashboard');
 Route::get("/tournaments", [TournamentsController::class, 'index'])->name('tournaments.list');
+Route::get("/tournaments/{tournament}", [TournamentsController::class, 'show'])->name('tournaments.show');
 Route::get("/ranking", [PlayersController::class, 'ranking'])->name('players.ranking');
 
 

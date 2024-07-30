@@ -14,7 +14,7 @@ class EvenNumber implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if ($value % 2 === 1) {
+        if (count($value) % 2 === 1) {
             $fail('message.even');
         }
     }

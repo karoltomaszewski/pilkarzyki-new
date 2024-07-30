@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -20,4 +21,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Game extends Model
 {
     use SoftDeletes;
+
+
+    public function team1(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'team1');
+    }
+
+    public function team2(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'team2');
+    }
 }
