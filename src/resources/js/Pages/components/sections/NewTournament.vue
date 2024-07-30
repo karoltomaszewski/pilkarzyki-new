@@ -1,7 +1,6 @@
 <template>
     <main class="main_wrapper">
         <Layout>
-            <!-- <button @click="test">sadasdas</button> -->
             <p class="slabo__header">Name of tournament:</p>
             <TextField class="input_field" v-model="form.tournamentName"/>
             <ChoosePlayers :players="sortedPlayers" @update:selectedPlayers="handleSelectedPlayers"/>
@@ -11,7 +10,6 @@
             <Btn class="button" :class="{ disabled: (form.tournamentName.length < 3 || form.selectedPlayers.length < 4) }" btnName="Submit" 
             @click="sendForm"
             />
-
         </Layout>
     </main> 
 
@@ -103,6 +101,7 @@ function handleSelectedPlayers(newSelectedPlayers) {
     align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
     .input_name {
         margin-bottom: 48px;

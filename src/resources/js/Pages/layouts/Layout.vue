@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="layout">
         <Snackbar />
         <Navbar />
         <slot />
@@ -19,5 +19,11 @@ const isLoaderCp = computed(() => {
     return store.isLoader
 })
 </script>
+
 <style lang="scss" scoped>
+.layout {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 </style>
