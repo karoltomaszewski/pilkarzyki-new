@@ -20,10 +20,10 @@
             
             <Btn btnName="Go to see table for players rankings"/>
             
-            <a href="players">Go register</a>
         </div>
-
-            <a v-if="isLogged" class="logout" :href="route('logout')">Wyloguj się</a>
+        <a v-if="isLogged" class="logout" :href="route('logout')">Logout</a>
+        <a v-else class="logout" :href="route('login')">Log in</a>
+        <a href="players">Go register</a>
         </Layout>
     </main>
 </template>
@@ -106,7 +106,7 @@ console.log(props.user?.email);
         align-items: center;
         display: flex;
         justify-content: center;
-        margin-top: 241px;
+        margin-top: 150px;
     
         .arris{
             margin-right: 22px;
