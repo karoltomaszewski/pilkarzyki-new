@@ -8,11 +8,13 @@
         <div class="players_list">
             <Btn btnName="Players list"
             @click="$redirect('players.store')"
+            :class="{ disabled: !isLogged }" 
             />
         </div>
         <div class="new_tournament">
             <Btn btnName="New tournament"
             @click="$redirect('tournaments.new')"
+            :class="{ disabled: !isLogged }" 
             />
         </div>
         <div class="tournaments_store">
@@ -26,6 +28,11 @@
 
 <script setup>
 import Btn from '../universal/Btn.vue';
+import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+
+const { props } = usePage();
+const isLogged = ref(props.user);
 </script>
 
 <style lang="scss" scoped>

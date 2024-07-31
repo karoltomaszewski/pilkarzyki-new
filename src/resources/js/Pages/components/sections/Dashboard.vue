@@ -36,18 +36,14 @@ import Btn from '../../components/universal/Btn.vue';
 import Layout from '../../layouts/Layout.vue';
 import PlayerList from './PlayerList.vue';
 
-console.log(usePage().props)
+//console.log(usePage().props)
 
 
 const { props } = usePage();
 const isLogged = ref(props.user);
 
-console.log(props.user?.id);
-console.log(props.user?.email);
-
-
-
-
+//console.log(props.user?.id);
+//console.log(props.user?.email);
 
 </script>
 
@@ -115,5 +111,6 @@ console.log(props.user?.email);
             justify-content: center;
         } 
     }
+
 }
 </style>

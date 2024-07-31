@@ -27,7 +27,7 @@ const props = defineProps({
     &.disabled {
         background-color: #d7d7d7;
         border: 2px solid #a4a4a4;
-        pointer-events: none;
+        cursor: not-allowed;
     }
 }
 </style>
