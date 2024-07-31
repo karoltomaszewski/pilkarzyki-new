@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TournamentRequest;
+use App\Models\Game;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\Tournament;
@@ -63,5 +64,38 @@ class TournamentsController extends Controller
         }
 
         return new JsonResponse($tournament->toArray());
+    }
+
+    public function show(Tournament $tournament): Response
+    {
+        $games = Game::query()
+            ->with([
+                'team1.player1' => function ($query) {
+                    $query->select('id', 'name', 'elo');
+                },
+                'team1.player2' => function ($query) {
+                    $query->select('id', 'name', 'elo');
+                },
+                'team2.player1' => function ($query) {
+                    $query->select('id', 'name', 'elo');
+                },
+                'team2.player2' => function ($query) {
+                    $query->select('id', 'name', 'elo');
+                },
+                'team1' => function ($query) {
+                    $query->select('id', 'player1_id', 'player2_id');
+                },
+                'team2' => function ($query) {
+                    $query->select('id', 'player1_id', 'player2_id');
+                }
+            ])
+            ->where('tournament_id', $tournament->id)
+            ->get();
+
+
+        return Inertia::render('TournamentDetails', [
+            'games' => $games
+
+        ]);
     }
 }
