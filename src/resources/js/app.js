@@ -15,8 +15,8 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) }).use(pinia);
 
-        app.config.globalProperties.$redirect = function(routeName) {
-            return router.visit(window.route(routeName));
+        app.config.globalProperties.$redirect = function(routeName, param = null) {
+            return router.visit(window.route(routeName, param));
         }
 
         app.config.globalProperties.$get = function(url, config) {

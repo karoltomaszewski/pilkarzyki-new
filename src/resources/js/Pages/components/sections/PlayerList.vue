@@ -6,7 +6,7 @@
                 <TextField class="input_field" v-model="playerName" />
                 <Btn :class="{ 'submit_btn': true, 'disabled': playerName.length <= 2 }" btnName="Submit" />
             </form>
-            <a class="anchor_tag" href="#">Go to select players and game mode</a>
+            <!-- <a class="anchor_tag" href="#">Go to select players and game mode</a> -->
 
             <div class="player_list">
             <Player class="player_and_id" v-for="player in players2" :key="player.id" :player="player.name" @delete="handleDelete(player.id)"
@@ -37,7 +37,8 @@ const props = defineProps({
     }
 });
 
-const players2 = ref([...props.players])
+const players2 = ref([...props.players]);
+
 
 
 const addPlayer = () => {
