@@ -6,30 +6,30 @@
 
         <div class="tournament_stats">
             <div class="table_naming">
-                <div>Elo change:</div>
-                <div>Team 1</div>
-                <div>Result:</div>
-                <div>Team 2</div>
-                <div>Elo change:</div>
+                <div class="naming_elem small"><span>Elo</span></div>
+                <div class="naming_elem large"><span>Team 1</span></div>
+                <div class="naming_elem small"><span>Result</span></div>
+                <div class="naming_elem large"><span>Team 2</span></div>
+                <div class="naming_elem small"><span>Elo</span></div>
 
             </div>
             <div class="single_round" v-for="game in games" :key="game.id">
-                <div class="elo_change" :class="{ 'elo_plus': game.elo_change > 0, 'elo_minus': game.elo_change < 0 }"
+                <div class="elo_change small" :class="[game.elo_change > 0 ? 'elo_plus' : 'elo_minus']"
                     >
                     {{ game.elo_change}}
                 </div>
-                <div class="team1_players" :class="{ 'winner': game.points_team1 > game.points_team2 }">
+                <div class="team1_players large" :class="[game.points_team1 > game.points_team2 && 'winner']">
                     <p>{{ game.team1.player1.name }}, <br> {{ game.team1.player2.name }} </p>
                 </div>
                     
-                <div class="game_result">
+                <div class="game_result small">
                     <h3>{{ game.points_team1 }} : {{ game.points_team2 }} </h3>
                 </div>
              
-                <div class="team2_players" :class="{ 'winner': game.points_team2 > game.points_team1 }">
+                <div class="team2_players large" :class="[game.points_team1 < game.points_team2 && 'winner']">
                     <p> {{ game.team2.player1.name }}, <br> {{ game.team2.player2.name }}</p>
                 </div>   
-                <div class="elo_change" :class="{ 'elo_plus': game.elo_change_2 > 0, 'elo_minus': game.elo_change_2 < 0 }"
+                <div class="elo_change small" :class="[game.elo_change_2 > 0 ? 'elo_plus' : 'elo_minus']"
                     >
                     {{ game.elo_change_2}}
                 </div>
@@ -66,6 +66,9 @@ function back() {
 }
 
 
+const dimensions = ['80', '', '80', '', '80']
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -78,12 +81,33 @@ function back() {
     flex-direction: column;
     gap: 32px;
     margin-top: 24px;
+    padding-bottom: 24px;
+    width: 680px;
 
     .table_naming {
+        border-bottom: 1px solid rgb(39, 39, 39);
         display: flex;
-        font-size: 24px;
         justify-content: space-between;
-        padding: 0px 24px;
+        padding: 12px 0;
+        
+
+
+        .naming_elem {
+            display: flex;
+            justify-content: center;
+
+            &.small {
+                width: 70px;
+            }
+    
+            &.large {
+                width: 200px;
+            }
+
+            span {
+                font-size: 24px;
+            }
+        }
     }
 
     .single_round {
@@ -91,11 +115,29 @@ function back() {
         flex-direction: row;
         justify-content: space-between;
 
+        .small,
+        .large {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: center;
+
+            p {
+                width: max-content;
+            }
+        }
+
+        .small {
+            width: 70px;
+        }
+
+        .large {
+            width: 200px;
+        }
+
         .elo_change {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0px 24px;
         }
         
         .elo_plus {
@@ -108,18 +150,10 @@ function back() {
             font-weight: 900;
         }
 
-
-
-        .team1_players {
-            padding-left: 32px;
-        }
-
         .game_result {
             align-items: center;
             display: flex;
             justify-content: center;
-            margin-left: 32px;
-            margin-right: 32px;
 
             :deep(h3) {
                 align-items: center;
@@ -128,11 +162,9 @@ function back() {
             }
         }
 
-        .team2_players {
-            padding-right: 32px;
-        }
-
         .winner {
+
+            //color: green;
             font-weight: 700;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
