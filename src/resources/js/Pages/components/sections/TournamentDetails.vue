@@ -31,17 +31,31 @@
                 </div>
             </div>
             
-            <div class="scoreboard">
-                <div class="team" v-for="team in uniqueTeams" :key="team.id">
-                    <div class="single_team">
-                        <p v-if="team.player1">{{ team.player1.name }}</p>
-                        <p v-if="team.player2">{{ team.player2.name }}</p>
-                        <!-- <p>{{ team1.points }}</p> -->
-                    </div>
+            
+        </div>
+
+        <p>Sort type: {{sortType}}</p>
+        <div>
+            <p @click="sortType='rank_asc'">Rank asc</p>
+            <p @click="sortType='rank_desc'">Rank desc</p>
+            <p @click="sortType='alphabet_asc'">Alphabet asc</p>
+            <p @click="sortType='alphabet_desc'">Alphabet desc</p>
+            <p @click="sortType='goalbalance_asc'">Goal balance asc</p>
+            <p @click="sortType='goalbalance_desc'">Goal balance desc</p>
+            <p @click="sortType='elochange_asc'">Elo change asc</p>
+            <p @click="sortType='elochange_desc'">Elo change desc</p>
+
+        </div>
+        <div class="scoreboard">
+            <div class="team" v-for="team in preparedTableDataCp" :key="team.id">
+                <div class="single_team">
+                    <p>{{ team.names }}</p>
+                    <p>{{ team.goalsBalance }} </p>
+                    <p>{{ team.wins }} </p>
+                    <p>{{ team.defeats }} </p>
+                    <p>{{ team.elo.toFixed(2) }} </p>
                 </div>
             </div>
-
-            <p>{{preparedTableData}}</p>
         </div>
     </Layout>
 </template>
@@ -77,6 +91,8 @@ function back() {
 }
 
 const games = ref(props.games);
+
+const sortType = ref('rank_asc')
 
 function prepareTableData() {
     let res = {};
@@ -122,11 +138,52 @@ function prepareTableData() {
         }
     })
     console.log(res)
-    return res
+    return Object.values(res).map((item) => {
+        return {
+            defeats: item.defeats,
+            elo: item.eloChange,
+            goalsBalance: item.goalsGained - item.goalsLost,
+            names: item.player1 + ' ' + item.player2,
+            wins: item.wins
+        }
+    })
 }
 
 
 const preparedTableData = ref(prepareTableData());
+
+console.log(prepareTableData);
+
+
+
+const preparedTableDataCp = computed(()=>{
+    if (sortType.value === 'alphabet_asc') {
+        return preparedTableData.value.sort((a,b) => a.names > b.names ? 1 : -1);
+    } 
+    
+    else if (sortType.value === 'alphabet_desc') {
+        return preparedTableData.value.sort((a,b) => a.names < b.names ? 1 : -1);
+    }
+
+    else if (sortType.value === 'elochange_asc') {
+        return preparedTableData.value.sort((a,b) => a.elo_change > b.elo_change ? 1 : -1);
+    }
+
+    else if (sortType.value === 'elochange_desc') {
+        return preparedTableData.value.sort((a,b) => a.elo_change < b.elo_change ? 1 : -1);
+    }
+
+    else if (sortType.value === 'goalbalance_asc') {
+        return preparedTableData.value.sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1);
+    }
+
+    else if (sortType.value === 'goalbalance_desc') {
+        return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1);
+    }
+
+    return preparedTableData.value.sort((a,b) => a.names > b.names ? 1 : -1);
+})
+
 
 
 
@@ -234,14 +291,18 @@ const preparedTableData = ref(prepareTableData());
     }
 
     
-    .scoreboard {
-        border: 1px solid black;
-        display: flex;
-        flex-direction: column;
+}
+.scoreboard {
+    background-color: azure;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 680px;
 
-        .single_team {
-            display: flex;
-        }
+    .single_team {
+        display: flex;
+        gap: 12px;
     }
 }
 
