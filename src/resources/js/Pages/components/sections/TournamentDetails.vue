@@ -40,6 +40,8 @@
                     </div>
                 </div>
             </div>
+
+            <p>{{preparedTableData}}</p>
         </div>
     </Layout>
 </template>
@@ -75,62 +77,58 @@ function back() {
 }
 
 const games = ref(props.games);
-    const uniqueTeams = computed(() => {
-    const teamPoints = {};
 
-    // Accumulate points for each team
-    games.value.forEach(game => {
-        if (!teamPoints[game.team1.id]) {
-            teamPoints[game.team1.id] = {
-                id: game.team1.id,
-                player1: game.team1.player1,
-                player2: game.team1.player2,
-                points: game.points_team1
-            };
+function prepareTableData() {
+    let res = {};
+    games.value.forEach(item => {
+        res[item.team1.id] = {
+            player1: '',
+            player2: '',
+            goalsGained: 0,
+            goalsLost: 0,
+            wins: 0,
+            defeats: 0,
+            eloChange: 0
         }
-        if (!teamPoints[game.team2.id]) {
-            teamPoints[game.team2.id] = {
-                id: game.team2.id,
-                player1: game.team2.player1,
-                player2: game.team2.player2,
-                points: game.points_team2
-            };
+        res[item.team2.id] = {
+            player1Name: '',
+            player2Name: '',
+            goalsGained: 0,
+            goalsLost: 0,
+            wins: 0,
+            defeats: 0,
+            eloChange: 0
         }
+    })
 
-        teamPoints[game.team1.id].points += game.team1.points_team1;
-        teamPoints[game.team2.id].points += game.team2.points_team2;
-    });
+    games.value.forEach(item => {
+        res[item.team1.id] = {
+            player1: item.team1.player1.name,
+            player2: item.team1.player2.name,
+            goalsGained: res[item.team1.id].goalsGained + item.points_team1,
+            goalsLost: res[item.team1.id].goalsLost + item.points_team2,
+            wins: item.points_team1>item.points_team2 ? res[item.team1.id].wins+1 : res[item.team1.id].wins,
+            defeats: item.points_team1<item.points_team2 ? res[item.team1.id].defeats+1 : res[item.team1.id].defeats,
+            eloChange: res[item.team1.id].eloChange + item.elo_change
+        }
+        res[item.team2.id] = {
+            player1: item.team2.player1.name,
+            player2: item.team2.player2.name,
+            goalsGained: res[item.team2.id].goalsGained + item.points_team2,
+            goalsLost: res[item.team2.id].goalsLost + item.points_team1,
+            wins: item.points_team2>item.points_team1 ? res[item.team2.id].wins+1 : res[item.team2.id].wins,
+            defeats: item.points_team2<item.points_team1 ? res[item.team2.id].defeats+1 : res[item.team2.id].defeats,
+            eloChange: res[item.team2.id].eloChange + item.elo_change_2
+        }
+    })
+    console.log(res)
+    return res
+}
 
-    console.log(Object.values(teamPoints).sort((a, b) => b.points - a.points))
-    console.log(Object.values(teamPoints).sort((a, b) => b.points - a.points))
 
-    return Object.values(teamPoints).sort((a, b) => b.points - a.points);
-});
-
-// Usage
-// const totalPoints = calculateTotalPoints(games);
-// console.log(totalPoints);
+const preparedTableData = ref(prepareTableData());
 
 
-
-//         const getTotalPoints = (teamId) => {
-//             return this.games.reduce((totalPoints, game) => {
-//                 if (game.team1.id === teamId) {
-//                     totalPoints += game.points_team1;
-//                 } else if (game.team2.id === teamId) {
-//                     totalPoints += game.points_team2;
-//                 }
-//                 return totalPoints;
-//             }, 0);
-//         }
-
-//   const totalPointsForTeams = computed(() => {
-//             const points = {};
-//             uniqueTeams.value.forEach(team => {
-//                 points[team.id] = getTotalPoints(team.id);
-//             });
-//             return points;
-//         });
 
 
 </script>
