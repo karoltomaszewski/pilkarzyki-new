@@ -21,15 +21,16 @@
     font-style: normal;
   }
   
+
   @font-face {
-    font-family: 'Slabo 13px';
-    src: url('../js/Pages/assets/fonts/Slabo_13px/Slabo13px-Regular.ttf') format('truetype');
+    font-family: 'Aleo';
+    src: url('../js/Pages/assets/fonts/Aleo-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   
   body {
-        font-family: 'Slabo 13px', serif;
+        font-family: 'Aleo', sans-serif;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
