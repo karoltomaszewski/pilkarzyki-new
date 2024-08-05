@@ -461,6 +461,7 @@ const preparedTableDataCp = computed(() => {
     background-color: #E0F9FF;
     border: 2px solid #A0B9BF;
     border-radius: 8px;
+    cursor: pointer;
     padding: 4px;
 }
 
