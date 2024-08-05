@@ -33,30 +33,45 @@
             
             
         </div>
-
-        <p>Sort type: {{sortType}}</p>
-        <div>
-            <p @click="sortType='rank_asc'">Rank asc</p>
-            <p @click="sortType='rank_desc'">Rank desc</p>
-            <p @click="sortType='alphabet_asc'">Alphabet asc</p>
-            <p @click="sortType='alphabet_desc'">Alphabet desc</p>
-            <p @click="sortType='goalbalance_asc'">Goal balance asc</p>
-            <p @click="sortType='goalbalance_desc'">Goal balance desc</p>
-            <p @click="sortType='elochange_asc'">Elo change asc</p>
-            <p @click="sortType='elochange_desc'">Elo change desc</p>
+        <div class="sorting">
+            <p>Sort type: <span>{{sortType}}</span></p>
+            <div class="sorting_types">
+                <p @click="sortType='rank_asc'">RANK ↑</p>
+                <p @click="sortType='rank_desc'">RANK↓</p>
+                <p @click="sortType='alphabet_asc'">A-Z</p>
+                <p @click="sortType='alphabet_desc'">Z-A</p>
+                <p @click="sortType='goalbalance_asc'">GB↑</p>
+                <p @click="sortType='goalbalance_desc'">GB↓</p>
+                <p @click="sortType='elochange_asc'">ELO↑</p>
+                <p @click="sortType='elochange_desc'">ELO↓</p>
+            </div>
 
         </div>
+        
         <div class="scoreboard">
+            <div class="scoreboard_desc">
+                <div class="scoreboard_players">
+                    <p>Team</p>
+                </div>
+                <p>Goal balance</p>
+                <p>Wins</p>
+                <p>Defeats</p>
+                <p>Elo change</p>
+            </div>
+            
             <div class="team" v-for="team in preparedTableDataCp" :key="team.id">
                 <div class="single_team">
-                    <p>{{ team.names }}</p>
-                    <p>{{ team.goalsBalance }} </p>
-                    <p>{{ team.wins }} </p>
-                    <p>{{ team.defeats }} </p>
-                    <p>{{ team.elo.toFixed(2) }} </p>
+                    <div class="team_names"><p>{{ team.names }}</p></div>
+                    <div class="team_stats">
+                        <div class="goal_balance"><p>{{ team.goalsBalance }}</p></div>
+                        <div class="team_wins"><p>{{ team.wins }}</p></div>
+                        <div class="team_defeats"><p>{{ team.defeats }}</p></div>
+                        <div class="team_elo"><p>{{ team.elo.toFixed(2) }}</p></div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </Layout>
 </template>
 
@@ -143,7 +158,7 @@ function prepareTableData() {
             defeats: item.defeats,
             elo: item.eloChange,
             goalsBalance: item.goalsGained - item.goalsLost,
-            names: item.player1 + ' ' + item.player2,
+            names: item.player1 + ', ' + item.player2 + ':',
             wins: item.wins
         }
     })
@@ -283,24 +298,69 @@ const preparedTableDataCp = computed(()=>{
         }
 
         .winner {
-
-            //color: green;
             font-weight: 900;
-            //text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
     }
 
     
 }
 .scoreboard {
-    background-color: azure;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+    align-items: flex-start;
+    background-color: aliceblue;
+    border: 1px solid rgb(39, 39, 39);
+    border-radius: 8px;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 20px;
     width: 680px;
 
     .single_team {
+        display: flex;
+        gap: 12px;
+
+        .team_names {
+            width: 340px;
+        }
+    }
+
+    .team_stats {
+        display: flex;
+        justify-content: space-between;
+        gap: 60px;
+        margin-left: 20px;
+
+
+    }
+
+    .scoreboard_desc {
+        display: flex;
+        font-weight: 500;
+        justify-content: space-between;
+        font-weight: 900;
+        gap: 8px;
+
+        .scoreboard_players {
+            width: 310px;
+        }
+    }
+    
+    
+}
+.sorting {
+    background-color: aliceblue;
+    border: 1px solid rgb(39, 39, 39);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding: 20px;
+    width: 680px;
+
+    span {
+        font-weight: 900;
+    }
+ 
+    .sorting_types {
         display: flex;
         gap: 12px;
     }
