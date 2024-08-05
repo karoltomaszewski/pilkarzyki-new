@@ -31,22 +31,6 @@
                     {{ game.elo_change_2 }}
                 </div>
             </div>
-            
-            
-        </div>
-        <div class="sorting">
-            <p>Sort type: <span>{{sortType}}</span></p>
-            <div class="sorting_types">
-                <p @click="sortType='rank_asc'">RANK ↑</p>
-                <p @click="sortType='rank_desc'">RANK↓</p>
-                <p @click="sortType='alphabet_asc'">A-Z</p>
-                <p @click="sortType='alphabet_desc'">Z-A</p>
-                <p @click="sortType='goalbalance_asc'">GB↑</p>
-                <p @click="sortType='goalbalance_desc'">GB↓</p>
-                <p @click="sortType='elochange_asc'">ELO↑</p>
-                <p @click="sortType='elochange_desc'">ELO↓</p>
-            </div>
-
         </div>
         
         <div class="scoreboard">
