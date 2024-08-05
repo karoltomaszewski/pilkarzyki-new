@@ -1,7 +1,8 @@
 <template>
     <Layout>
-        <div> Tournament stats: </div>
-        <p @click="back"><- All tournaments</p>
+        <div class="go_back">
+            <p @click="back">← Go back</p>
+        </div>
         
         <div class="tournament_stats">
             <div class="table_naming">
@@ -50,24 +51,19 @@
         
         <div class="scoreboard">
             <div class="scoreboard_desc">
-                <div class="scoreboard_players">
-                    <p>Team</p>
-                </div>
-                <p>Goal balance</p>
-                <p>Wins</p>
-                <p>Defeats</p>
-                <p>Elo change</p>
+                <p v-for="item in summaryDimensions" :key="item.desc" :style="`width: ${item.dimension}px`" @click="handleTabClicked(item.type)"> {{item.desc}}</p>
             </div>
             
-            <div class="team" v-for="team in preparedTableDataCp" :key="team.id">
+            <div class="team" v-for="(team, index) in preparedTableDataCp" :key="team.id">
                 <div class="single_team">
-                    <div class="team_names"><p>{{ team.names }}</p></div>
-                    <div class="team_stats">
-                        <div class="goal_balance"><p>{{ team.goalsBalance }}</p></div>
-                        <div class="team_wins"><p>{{ team.wins }}</p></div>
-                        <div class="team_defeats"><p>{{ team.defeats }}</p></div>
-                        <div class="team_elo"><p>{{ team.elo.toFixed(2) }}</p></div>
-                    </div>
+                    <div class="team_position" :style="`width: ${summaryDimensions[0].dimension}px`">{{ team.position}}</div>
+                    <div class="team_names" :style="`width: ${summaryDimensions[1].dimension}px`"><p>{{ team.names }}</p></div>
+                    <!-- <div class="team_stats"> -->
+                        <div class="goal_balance" :style="`width: ${summaryDimensions[2].dimension}px`"><p>{{ team.goalsBalance }}</p></div>
+                        <div class="team_wins" :style="`width: ${summaryDimensions[3].dimension}px`"><p>{{ team.wins }}</p></div>
+                        <div class="team_defeats" :style="`width: ${summaryDimensions[4].dimension}px`"><p>{{ team.defeats }}</p></div>
+                        <div class="team_elo" :style="`width: ${summaryDimensions[5].dimension}px`"><p>{{ team.elo.toFixed(2) }}</p></div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -107,7 +103,39 @@ function back() {
 
 const games = ref(props.games);
 
-const sortType = ref('rank_asc')
+
+const summaryDimensions = [
+    {
+        desc: 'Pos',
+        dimension: 25,
+        type: 'rank_asc'
+    },
+    {
+        desc: 'Team',
+        dimension: 353,
+        type: 'alphabet_asc'
+    },
+    {
+        desc: 'GB',
+        dimension: 50,
+        type: 'goalbalance_asc'
+    },
+    {
+        desc: 'Wins',
+        dimension: 50,
+        type: 'wins_asc'
+    },
+    {
+        desc: 'Defeats',
+        dimension: 50,
+        type: 'defeats_asc'
+    },
+    {
+        desc: 'Elo change',
+        dimension: 80,
+        type: 'elochange_asc'
+    },
+]
 
 function prepareTableData() {
     let res = {};
@@ -152,8 +180,8 @@ function prepareTableData() {
             eloChange: res[item.team2.id].eloChange + item.elo_change_2
         }
     })
-    console.log(res)
-    return Object.values(res).map((item) => {
+
+    let preparedArray = Object.values(res).map((item) => {
         return {
             defeats: item.defeats,
             elo: item.eloChange,
@@ -161,17 +189,39 @@ function prepareTableData() {
             names: item.player1 + ', ' + item.player2 + ':',
             wins: item.wins
         }
-    })
+    }).sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1).sort((a,b) => a.wins < b.wins ? 1 : -1).map((item, index) => {
+        return {
+            ...item,    
+            position: index+1,
+        }
+    });
+
+    return preparedArray
 }
 
 
 const preparedTableData = ref(prepareTableData());
 
-console.log(prepareTableData);
+const sortType = ref('rank_desc')
 
+function handleTabClicked(type) {
+    // porownanie czy typ sortowania (np po rankingu czy alfabetycznie) jest taki sam. Czyli, bierzemy pierwsyz czlon (split stringa po '_') 
+    // typu sortowania z obecnie wybranego (sortType.value) i przychodacego jako argument metody (type). JEsli jest taki sam, to zmien drugi czlon (z asc na desc i odwrotnie), 
+    // a jesli sa rozne, to podmien sortType na type z argumentu metody
+    if (type.split('_')[0] === sortType.value.split('_')[0]) {
+        let postfix = '';
+        if (sortType.value.split('_')[1] === 'desc') {
+            postfix = 'asc'
+        } else {
+            postfix = 'desc'
+        }
+        sortType.value = sortType.value.split('_')[0] + '_' + postfix
+    } else {
+        sortType.value = type;
+    }
+}
 
-
-const preparedTableDataCp = computed(()=>{
+const preparedTableDataCp = computed(() => {
     if (sortType.value === 'alphabet_asc') {
         return preparedTableData.value.sort((a,b) => a.names > b.names ? 1 : -1);
     } 
@@ -188,26 +238,40 @@ const preparedTableDataCp = computed(()=>{
         return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1);
     }
     
-        else if (sortType.value === 'elochange_asc') {
-            return preparedTableData.value.sort((a,b) => a.elo > b.elo ? 1 : -1);
-        }
-    
-        else if (sortType.value === 'elochange_desc') {
-            return preparedTableData.value.sort((a,b) => a.elo < b.elo ? 1 : -1);
-        }
+    else if (sortType.value === 'elochange_asc') {
+        return preparedTableData.value.sort((a,b) => a.elo > b.elo ? 1 : -1);
+    }
 
-        else if (sortType.value === 'rank_asc') {
-            return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1).sort((a,b) => a.wins > b.wins ? 1 : -1);
-        }
-    
-        else if (sortType.value === 'rank_desc') {
-            return preparedTableData.value.sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1).sort((a,b) => a.wins < b.wins ? 1 : -1);
-        }
+    else if (sortType.value === 'elochange_desc') {
+        return preparedTableData.value.sort((a,b) => a.elo < b.elo ? 1 : -1);
+    }
+
+    else if (sortType.value === 'rank_asc') {
+        return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1).sort((a,b) => a.wins > b.wins ? 1 : -1);
+    }
+
+    else if (sortType.value === 'rank_desc') {
+        return preparedTableData.value.sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1).sort((a,b) => a.wins < b.wins ? 1 : -1);
+    }
+
+    else if (sortType.value === 'wins_asc') {
+        return preparedTableData.value.sort((a,b) => a.wins > b.wins ? 1 : -1);
+    }
+
+    else if (sortType.value === 'wins_desc') {
+        return preparedTableData.value.sort((a,b) => a.wins < b.wins ? 1 : -1);
+    }
+
+    else if (sortType.value === 'defeats_asc') {
+        return preparedTableData.value.sort((a,b) => a.defeats > b.defeats ? 1 : -1);
+    }
+
+    else if (sortType.value === 'defeats_desc') {
+        return preparedTableData.value.sort((a,b) => a.defeats < b.defeats ? 1 : -1);
+    }
 
     return preparedTableData.value.sort((a,b) => a.names > b.names ? 1 : -1);
 })
-
-
 
 
 
@@ -318,6 +382,7 @@ const preparedTableDataCp = computed(()=>{
     border: 1px solid rgb(39, 39, 39);
     border-radius: 8px;
     justify-content: center;
+    margin-bottom: 50px;
     margin-top: 8px;
     padding: 20px;
     width: 680px;
@@ -325,9 +390,9 @@ const preparedTableDataCp = computed(()=>{
     .single_team {
         display: flex;
         gap: 12px;
-
-        .team_names {
-            width: 340px;
+        
+        div {
+            flex-shrink: 0;
         }
     }
 
@@ -337,18 +402,20 @@ const preparedTableDataCp = computed(()=>{
         gap: 60px;
         margin-left: 20px;
 
-
+        div {
+            flex-shrink: 0;
+        }
     }
 
     .scoreboard_desc {
         display: flex;
-        font-weight: 500;
-        justify-content: space-between;
-        font-weight: 900;
         gap: 8px;
 
-        .scoreboard_players {
-            width: 310px;
+        p {
+            font-size: 12px;
+            font-weight: 500;
+            justify-content: space-between;
+            font-weight: 900;
         }
     }
     
@@ -372,6 +439,13 @@ const preparedTableDataCp = computed(()=>{
         display: flex;
         gap: 12px;
     }
+}
+
+.go_back {
+    background-color: #E0F9FF;
+    border: 2px solid #A0B9BF;
+    border-radius: 8px;
+    padding: 4px;
 }
 
 </style>
