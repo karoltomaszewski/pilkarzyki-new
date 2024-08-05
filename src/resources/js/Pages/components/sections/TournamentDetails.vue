@@ -389,10 +389,41 @@ const preparedTableDataCp = computed(() => {
 
     .single_team {
         display: flex;
-        gap: 12px;
         
+
+        .team_position {
+            padding-left: 6px;
+            padding-top: 8px;
+        }
+
+        .team_names {
+            padding-left: 8px;
+            padding-top: 8px;
+        }
+
+        .goal_balance {
+            padding-left: 10px;
+            padding-top: 8px;
+        }
+
+        .team_wins {
+            padding-left: 28px;
+            padding-top: 8px;
+        }
+
+        .team_defeats {
+            padding-left: 42px;
+            padding-top: 8px;
+        }
+
+        .team_elo {
+            padding-left: 44px;
+            padding-top: 8px;
+        }
+
         div {
             flex-shrink: 0;
+            text-align: left;
         }
     }
 
@@ -412,10 +443,11 @@ const preparedTableDataCp = computed(() => {
         gap: 8px;
 
         p {
+            cursor: pointer;
             font-size: 12px;
-            font-weight: 500;
             justify-content: space-between;
             font-weight: 900;
+            
         }
     }
     
