@@ -179,22 +179,30 @@ const preparedTableDataCp = computed(()=>{
     else if (sortType.value === 'alphabet_desc') {
         return preparedTableData.value.sort((a,b) => a.names < b.names ? 1 : -1);
     }
-
-    else if (sortType.value === 'elochange_asc') {
-        return preparedTableData.value.sort((a,b) => a.elo_change > b.elo_change ? 1 : -1);
-    }
-
-    else if (sortType.value === 'elochange_desc') {
-        return preparedTableData.value.sort((a,b) => a.elo_change < b.elo_change ? 1 : -1);
-    }
-
+    
     else if (sortType.value === 'goalbalance_asc') {
         return preparedTableData.value.sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1);
     }
-
+    
     else if (sortType.value === 'goalbalance_desc') {
         return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1);
     }
+    
+        else if (sortType.value === 'elochange_asc') {
+            return preparedTableData.value.sort((a,b) => a.elo > b.elo ? 1 : -1);
+        }
+    
+        else if (sortType.value === 'elochange_desc') {
+            return preparedTableData.value.sort((a,b) => a.elo < b.elo ? 1 : -1);
+        }
+
+        else if (sortType.value === 'rank_asc') {
+            return preparedTableData.value.sort((a,b) => a.goalsBalance < b.goalsBalance ? 1 : -1).sort((a,b) => a.wins > b.wins ? 1 : -1);
+        }
+    
+        else if (sortType.value === 'rank_desc') {
+            return preparedTableData.value.sort((a,b) => a.goalsBalance > b.goalsBalance ? 1 : -1).sort((a,b) => a.wins < b.wins ? 1 : -1);
+        }
 
     return preparedTableData.value.sort((a,b) => a.names > b.names ? 1 : -1);
 })
