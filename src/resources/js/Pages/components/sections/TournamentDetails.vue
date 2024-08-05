@@ -43,10 +43,10 @@
                     <div class="team_position" :style="`width: ${summaryDimensions[0].dimension}px`">{{ team.position}}</div>
                     <div class="team_names" :style="`width: ${summaryDimensions[1].dimension}px`"><p>{{ team.names }}</p></div>
                     <!-- <div class="team_stats"> -->
-                        <div class="goal_balance" :style="`width: ${summaryDimensions[2].dimension}px`"><p>{{ team.goalsBalance }}</p></div>
-                        <div class="team_wins" :style="`width: ${summaryDimensions[3].dimension}px`"><p>{{ team.wins }}</p></div>
-                        <div class="team_defeats" :style="`width: ${summaryDimensions[4].dimension}px`"><p>{{ team.defeats }}</p></div>
-                        <div class="team_elo" :style="`width: ${summaryDimensions[5].dimension}px`"><p>{{ team.elo.toFixed(2) }}</p></div>
+                    <div class="goal_balance" :style="`width: ${summaryDimensions[2].dimension}px`"><p>{{ team.goalsBalance }}</p></div>
+                    <div class="team_wins" :style="`width: ${summaryDimensions[3].dimension}px`"><p>{{ team.wins }}</p></div>
+                    <div class="team_defeats" :style="`width: ${summaryDimensions[4].dimension}px`"><p>{{ team.defeats }}</p></div>
+                    <div class="team_elo" :style="`width: ${summaryDimensions[5].dimension}px`"><p>{{ team.elo.toFixed(2) }}</p></div>
                     <!-- </div> -->
                 </div>
             </div>
@@ -373,9 +373,22 @@ const preparedTableDataCp = computed(() => {
 
     .single_team {
         display: flex;
+        justify-content: space-between;
+
+        div {
+            display: flex;
+            justify-content: center;
+        };
+
+        .team_names {
+            justify-content: flex-start;
+            padding-left: 24px;
+        }
+
+
         
 
-        .team_position {
+       /* .team_position {
             padding-left: 6px;
             padding-top: 8px;
         }
@@ -403,8 +416,10 @@ const preparedTableDataCp = computed(() => {
         .team_elo {
             padding-left: 44px;
             padding-top: 8px;
-        }
+        } */
 
+
+    // asdasda
         div {
             flex-shrink: 0;
             text-align: left;
@@ -424,13 +439,15 @@ const preparedTableDataCp = computed(() => {
 
     .scoreboard_desc {
         display: flex;
-        gap: 8px;
+        justify-content: space-between;
+        //gap: 8px;
 
         p {
             cursor: pointer;
             font-size: 12px;
             justify-content: space-between;
             font-weight: 900;
+            text-align: center;
             
         }
     }
